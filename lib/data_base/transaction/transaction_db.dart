@@ -82,7 +82,7 @@ class TransactionDB implements TransactionDbFunction {
         await Hive.openBox<TransactionModel>(transactionDbName);
     transactionListNotifier.value.clear();
     transactionListNotifier.value.addAll(transactiondb.values
-        .where((element) => element.purpose.contains(text)));
+        .where((element) => element.category.name.contains(text)));
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     transactionListNotifier.notifyListeners();
   }

@@ -97,7 +97,7 @@ class Setting extends StatelessWidget {
               leading: const Icon(Icons.share),
               title: const Text('Share'),
               onTap: () {
-                Share.share("com.example.money_management_app");
+                Share.share("https://play.google.com/store/apps/details?id=in.brototype.money_map");
               },
             ),
             const Divider(

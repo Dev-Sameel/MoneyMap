@@ -23,6 +23,20 @@ const detTtl=TextStyle(fontSize: 18, fontWeight: FontWeight.w500,color: Colors.b
 const detSub= TextStyle(fontSize: 16,color: Colors.black,fontFamily: 'Inder',);
 const textSTYL2=TextStyle(fontWeight: FontWeight.w500, color: Color.fromARGB(255, 117, 117, 117));
 const graphBlue = Color.fromARGB(255, 224, 241, 255);
+const snakbarGradient =LinearGradient(colors: [Color.fromRGBO(212, 247, 145, 1), Color.fromRGBO(9, 191, 215, 1)],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        );
+
+const buttonGradient =   LinearGradient(
+          colors: [
+           Color.fromRGBO(187, 63, 221, 1),
+           Color.fromRGBO(251, 109, 169, 1),
+           Color.fromRGBO(255, 159, 124, 1),
+          ],
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+        );
 
 
 

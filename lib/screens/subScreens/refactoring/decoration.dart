@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_management_app/screens/subScreens/refactoring/styles.dart';
 
 // ignore: must_be_immutable
 class InputDecor extends StatelessWidget {
@@ -15,6 +16,8 @@ class InputDecor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: TextStyle(color: white),
+      
       keyboardType: textInputType,
       controller: controller,
       textInputAction: TextInputAction.next,

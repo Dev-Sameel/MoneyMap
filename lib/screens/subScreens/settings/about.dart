@@ -117,7 +117,7 @@ class AboutScreen extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   String url1 =
-                                      'https://instagram.com/sameel_x90?igshid=NGExMmI2YTkyZg==';
+                                      'https://instagram.com/dev.sameel?utm_source=qr&igshid=NGExMmI2YTkyZg%3D%3D';
                                   if (url1.isNotEmpty) {
                                     // ignore: deprecated_member_use
                                     launch(url1);

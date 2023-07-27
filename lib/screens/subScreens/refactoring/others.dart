@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_management_app/screens/subScreens/refactoring/styles.dart';
 
 dataEmpty(BuildContext context)
 {
@@ -27,18 +28,14 @@ dataEmpty(BuildContext context)
 
 void showCustomSnackBar(BuildContext context, String message) {
   final snackBar = SnackBar(
-    duration: const Duration(seconds: 4),
+    duration: const Duration(seconds: 3),
     backgroundColor: Colors.transparent,
     elevation: 0,
     content: Container(
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        gradient: const LinearGradient(
-          colors: [Color.fromRGBO(212, 247, 145, 1), Color.fromRGBO(9, 191, 215, 1)],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
+        gradient: snakbarGradient,
       ),
       child: Center(
         child: Text(

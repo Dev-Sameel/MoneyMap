@@ -44,3 +44,13 @@ addDataBox() {
     color: Colors.white,
   );
 }
+
+customBoxBorder()
+{
+  return BoxDecoration(borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(50),
+                                    bottomRight: Radius.circular(50)),
+                                border: Border.all(color:Color.fromRGBO(137, 135, 153, 1), width: 1),);
+}
+
+

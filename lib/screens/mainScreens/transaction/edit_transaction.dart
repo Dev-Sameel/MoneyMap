@@ -4,6 +4,7 @@ import 'package:money_management_app/data_base/category/category_db.dart';
 import 'package:money_management_app/data_base/balance/balance_db.dart';
 import 'package:money_management_app/data_base/graph/chart.dart';
 import 'package:money_management_app/data_base/transaction/transaction_db.dart';
+import 'package:money_management_app/screens/subScreens/refactoring/others.dart';
 import '../../subScreens/refactoring/styles.dart';
 import 'package:money_management_app/screens/subScreens/refactoring/container_shadow.dart';
 import 'package:money_management_app/screens/subScreens/refactoring/date_picker2.dart';
@@ -45,6 +46,8 @@ class _EditTransactionState extends State<EditTransaction> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double contheight= height*0.77;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -58,208 +61,206 @@ class _EditTransactionState extends State<EditTransaction> {
         ),
         centerTitle: true,
       ),
-      backgroundColor: cardColor,
-      body: Stack(
+      backgroundColor: bgColor,
+      body: ListView(
         children: [
-          ClipPath(
-            clipper: MyCustomClipper2(),
-            child: Container(
-              color: bgColor,
-              width: double.infinity,
-              height: 300,
-            ),
-          ),
           Container(
-              margin: const EdgeInsets.only(left: 25, right: 25, top: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color.fromARGB(255, 253, 253, 253),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color.fromARGB(76, 0, 0, 0),
-                    blurRadius: 10.0, // soften the shadow
-                    spreadRadius: 1.0, //extend the shadow
-                  )
-                ],
-              ),
-              height: height * 0.75,
-              child: ListView(
-                children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 52, top: 10),
-                        child: Row(
-                          children: [
-                            Row(
-                              children: [
-                                Radio(
-                                  activeColor: bgColor,
-                                  value: CategoryType.icome,
-                                  groupValue: _selectedCategorytype,
-                                  onChanged: (newvalue) {
-                                    setState(() {
-                                      _selectedCategorytype =
-                                          CategoryType.icome;
-                                      _categoryID = null;
-                                    });
-                                  },
-                                ),
-                                const Text('Income'),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Radio(
-                                  activeColor: bgColor,
-                                  value: CategoryType.expense,
-                                  groupValue: _selectedCategorytype,
-                                  onChanged: (newvalue) {
-                                    setState(() {
-                                      _selectedCategorytype =
-                                          CategoryType.expense;
-                                      _categoryID = null;
-                                    });
-                                  },
-                                ),
-                                const Text('Expense'),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      sizeBox15(height),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        height:contheight,
+            
+            margin: EdgeInsets.only(right: 30, left: 30,top: 30),
+           decoration:containerShadow(BorderRadius.circular(10)),
+            child: Stack(
+              children: [
+                Image(image: AssetImage('assets/images/balls.png')),
+                Column(
+                  children: [
+                    Padding(
+                     padding: const EdgeInsets.only( top: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            'Category',
-                            style: textSTYL2,
+                          Row(
+                            children: [
+                              Radio(
+                                activeColor: white,
+                                fillColor: MaterialStatePropertyAll(white),
+                                value: CategoryType.icome,
+                                groupValue: _selectedCategorytype,
+                                onChanged: (newvalue) {
+                                  setState(() {
+                                    _selectedCategorytype =
+                                        CategoryType.icome;
+                                    _categoryID = null;
+                                  });
+                                },
+                              ),
+                              const Text('Income',
+                                style: TextStyle(color: white)),
+                            ],
                           ),
-                          sizeBox7(height),
-                          Container(
-                              width: 200,
-                              height: 45,
-                              decoration: addDataBox(),
-                              child: Center(
-                                child: DropdownButton<String>(
-                                  dropdownColor: cardColor,
-                                  value: _categoryID,
-                                  underline: const SizedBox(),
-                                  items: (_selectedCategorytype ==
-                                              CategoryType.icome
-                                          ? CategoryDB.instance
-                                              .incomeCategoryListListener
-                                          : CategoryDB.instance
-                                              .expenseCategoryListListener)
-                                      .value
-                                      .map((e) {
-                                    return DropdownMenuItem(
-                                      value: e.id,
-                                      child: Text(e.name),
-                                      onTap: () {
-                                        _selectedCategoryModel = e;
-                                      },
-                                    );
-                                  }).toList(),
-                                  onChanged: (selectedValue) {
-                                    setState(() {
-                                      _categoryID = selectedValue;
-                                    });
-                                  },
-                                  hint: Padding(
-                                    padding: const EdgeInsets.only(right: 26),
-                                    child:
-                                        Text((_selectedCategoryModel!.name)),
-                                  ),
+                          Row(
+                            children: [
+                              Radio(
+                                activeColor: white,
+                                fillColor: MaterialStatePropertyAll(white),
+                                value: CategoryType.expense,
+                                groupValue: _selectedCategorytype,
+                                onChanged: (newvalue) {
+                                  setState(() {
+                                    _selectedCategorytype =
+                                        CategoryType.expense;
+                                    _categoryID = null;
+                                  });
+                                },
+                              ),
+                              const Text('Expense',
+                                style: TextStyle(color: white)),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    sizeBox15(height),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Category',
+                          style: textSTYL2,
+                        ),
+                        sizeBox7(height),
+                        Container(
+                            width: width*0.7,
+                            height: height*0.07,
+                            decoration: customBoxBorder(),
+                            child: Center(
+                              child: DropdownButton<String>(
+                                dropdownColor: Colors.teal,
+                                value: _categoryID,
+                                underline: const SizedBox(),
+                                items: (_selectedCategorytype ==
+                                            CategoryType.icome
+                                        ? CategoryDB.instance
+                                            .incomeCategoryListListener
+                                        : CategoryDB.instance
+                                            .expenseCategoryListListener)
+                                    .value
+                                    .map((e) {
+                                  return DropdownMenuItem(
+                                    value: e.id,
+                                    child: Text(e.name,style: TextStyle(color: white),),
+                                    onTap: () {
+                                      _selectedCategoryModel = e;
+                                    },
+                                  );
+                                }).toList(),
+                                onChanged: (selectedValue) {
+                                  setState(() {
+                                    _categoryID = selectedValue;
+                                  });
+                                },
+                                hint: Padding(
+                                  padding: const EdgeInsets.only(right: 26),
+                                  child:
+                                      Text((_selectedCategoryModel!.name)),
                                 ),
-                              )),
-                          sizeBox25(height),
-                          const Text('Notes', style: textSTYL2),
-                          sizeBox7(height),
-                          Container(
-                              width: 200,
-                              height: 45,
-                              decoration: addDataBox(),
+                              ),
+                            )),
+                        sizeBox25(height),
+                        const Text('Notes', style: textSTYL2),
+                        sizeBox7(height),
+                        Container(
+                            width: width*0.7,
+                            height: height*0.07,
+                            decoration: customBoxBorder(),
+                            child: Center(
                               child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20, bottom: 3),
+                                padding:  EdgeInsets.only(left: 20),
                                 child: InputDecor(
                                     controller: purposeTextEditingController,
-                                    textInputType: TextInputType.number,
+                                    textInputType: TextInputType.text,
                                     hintText: 'Enter Notes'),
-                              )),
-                          sizeBox25(height),
-                          const Text('Amount', style: textSTYL2),
-                          sizeBox7(height),
-                          Container(
-                              width: 200,
-                              height: 45,
-                              decoration: addDataBox(),
+                              ),
+                            )),
+                        sizeBox25(height),
+                        const Text('Amount', style: textSTYL2),
+                        sizeBox7(height),
+                        Container(
+                            width: width*0.7,
+                            height: height*0.07,
+                            decoration: customBoxBorder(),
+                            child: Center(
                               child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20, bottom: 3),
+                               padding:  EdgeInsets.only(left: 20),
                                 child: InputDecor(
                                     controller: amountTextEditingController,
                                     textInputType: TextInputType.number,
                                     hintText: 'Enter Amount'),
-                              )),
-                          sizeBox25(height),
-                          const Text('Date', style: textSTYL2),
-                          sizeBox7(height),
-                          Container(
-                              width: 200,
-                              height: 45,
-                              decoration: addDataBox(),
-                              child: TextButton.icon(
-                                style: const ButtonStyle(
-                                    foregroundColor: MaterialStatePropertyAll(
-                                        Color.fromARGB(255, 0, 0, 0)),
-                                    overlayColor: MaterialStatePropertyAll(
-                                        Colors.transparent)),
-                                onPressed: () async {
-                                  final selectedDateTemp =
-                                      await datePicker2(context);
-                                  if (selectedDateTemp == null) {
-                                    return;
-                                  } else {
-                                    setState(() {
-                                      _selectedDate = selectedDateTemp;
-                                    });
-                                  }
-                                },
-                                icon: const Icon(Icons.calendar_today),
-                                label: Text(
-                                  _selectedDate == null
-                                      ? 'Select Date'
-                                      : DateFormat("dd-MMMM-yyyy")
-                                          .format(_selectedDate!),
-                                ),
-                              )),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 150,
+                              ),
+                            )),
+                        sizeBox25(height),
+                        const Text('Date', style: textSTYL2),
+                        sizeBox7(height),
+                        Container(
+                            width: width*0.7,
+                            height: height*0.07,
+                            decoration: customBoxBorder(),
+                            child: TextButton.icon(
+                              style: const ButtonStyle(
+                                  foregroundColor: MaterialStatePropertyAll(
+                                      white),
+                                  overlayColor: MaterialStatePropertyAll(
+                                      Colors.transparent)),
+                              onPressed: () async {
+                                final selectedDateTemp =
+                                    await datePicker2(context);
+                                if (selectedDateTemp == null) {
+                                  return;
+                                } else {
+                                  setState(() {
+                                    _selectedDate = selectedDateTemp;
+                                  });
+                                }
+                              },
+                              icon: const Icon(Icons.calendar_today),
+                              label: Text(
+                                _selectedDate == null
+                                    ? 'Select Date'
+                                    : DateFormat("dd-MMMM-yyyy")
+                                        .format(_selectedDate!),
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: width*0.25,
+                      height: height*0.055,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(80),
+        gradient:buttonGradient
+                        ),
                         child: ElevatedButton(
                           style: const ButtonStyle(
-                              shadowColor: MaterialStatePropertyAll(
-                                  Color.fromARGB(255, 226, 226, 226)),
+                            shadowColor: MaterialStatePropertyAll(
+                                  Colors.transparent),
                               elevation: MaterialStatePropertyAll(10),
-                              backgroundColor:
-                                  MaterialStatePropertyAll(bgColor)),
+                              backgroundColor: MaterialStatePropertyAll(Colors.transparent),overlayColor: MaterialStatePropertyAll(Colors.transparent)),
                           onPressed: () {
                             editTransaction();
                           },
                           child: const Text('Update'),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              )),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -300,7 +301,9 @@ class _EditTransactionState extends State<EditTransaction> {
     // ignore: use_build_context_synchronously
     Navigator.of(context).pop();
     filterFunction();
-    TransactionDB.instance.refresh();
-    Amounts.instance.balanceAmount();
+    await TransactionDB.instance.refresh();
+    await Amounts.instance.balanceAmount();
+    showCustomSnackBar(context, 'Updated');
+
   }
 }
