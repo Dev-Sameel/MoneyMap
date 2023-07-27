@@ -46,7 +46,7 @@ dependencies:
   flutter_flip_card: ^0.0.4
   url_launcher: ^6.1.12
   device_preview: ^1.1.0
-  fluttertoast: ^8.2.2
+
  
 
 dev_dependencies:

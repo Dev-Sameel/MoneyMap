@@ -26,13 +26,15 @@ dataEmpty(BuildContext context)
   );
 }
 
-void showCustomSnackBar(BuildContext context, String message) {
+void showCustomSnackBar(BuildContext context, String message, double n) {
   final snackBar = SnackBar(
+    behavior: SnackBarBehavior.floating,
     duration: const Duration(seconds: 3),
     backgroundColor: Colors.transparent,
     elevation: 0,
     content: Container(
       height: 40,
+      margin: EdgeInsets.only(left: n,right: n),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: snakbarGradient,
@@ -52,4 +54,12 @@ void showCustomSnackBar(BuildContext context, String message) {
   );
 
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
+
+class RemoveGlow extends ScrollBehavior
+{
+  @override
+  Widget buildOverscrollIndicator(BuildContext context, Widget child,_) {
+    return child;
+  }
 }

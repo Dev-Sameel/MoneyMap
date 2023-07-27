@@ -70,231 +70,234 @@ class _StatisticsState extends State<Statistics> with TickerProviderStateMixin {
         ),
         centerTitle: true,
       ),
-      body: ValueListenableBuilder(
-        valueListenable: Amounts.instance.expenseNotifier,
-        builder: (context, value, Widget? _) => ListView(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 16,
+      body: ScrollConfiguration(
+        behavior: RemoveGlow(),
+        child: ValueListenableBuilder(
+          valueListenable: Amounts.instance.expenseNotifier,
+          builder: (context, value, Widget? _) => ListView(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
               ),
-              child: Container(
-                margin: const EdgeInsets.only(left: 40, right: 40),
-                decoration: containerShadow(BorderRadius.circular(20)),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.height * 0.03,
-                    left: MediaQuery.of(context).size.height * 0.03,
-                  ),
-                  child: DropdownButton<String>(
-                    dropdownColor: bgColor,
-                    borderRadius: BorderRadius.circular(20),
-                    style: const TextStyle(
-                      fontSize: 17,
-                      fontFamily: 'Inder',
-                      color: white,
-                      fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 16,
+                ),
+                child: Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40),
+                  decoration: containerShadow(BorderRadius.circular(20)),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      right: MediaQuery.of(context).size.height * 0.03,
+                      left: MediaQuery.of(context).size.height * 0.03,
                     ),
-                    isExpanded: true,
-                    underline: const SizedBox(),
-                    value: categoryId2,
-                    items: <String>[
-                      'All',
-                      'Today',
-                      'Yesterday',
-                      'This week',
-                      'month',
-                    ]
-                        .map(
-                          (e) => DropdownMenuItem(
-                            value: e,
-                            child: Text(e),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        categoryId2 = value.toString();
-                      });
-                    },
+                    child: DropdownButton<String>(
+                      dropdownColor: bgColor,
+                      borderRadius: BorderRadius.circular(20),
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontFamily: 'Inder',
+                        color: white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      isExpanded: true,
+                      underline: const SizedBox(),
+                      value: categoryId2,
+                      items: <String>[
+                        'All',
+                        'Today',
+                        'Yesterday',
+                        'This week',
+                        'month',
+                      ]
+                          .map(
+                            (e) => DropdownMenuItem(
+                              value: e,
+                              child: Text(e),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          categoryId2 = value.toString();
+                        });
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: TabBar(
-                indicator: containerShadow(BorderRadius.circular(30)),
-                controller: tabController,
-                labelColor: white,
-                labelStyle:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                unselectedLabelColor: graphBlue,
-                overlayColor: const MaterialStatePropertyAll(Colors.transparent),
-                tabs: const [
-                  Tab(
-                    child: Text(
-                      'Overview',
-                      style: TextStyle(
-                        fontFamily: 'Inder',
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: TabBar(
+                  indicator: containerShadow(BorderRadius.circular(30)),
+                  controller: tabController,
+                  labelColor: white,
+                  labelStyle:
+                      const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  unselectedLabelColor: graphBlue,
+                  overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+                  tabs: const [
+                    Tab(
+                      child: Text(
+                        'Overview',
+                        style: TextStyle(
+                          fontFamily: 'Inder',
+                        ),
                       ),
                     ),
-                  ),
-                  Tab(
-                    child: Text(
-                      'Income',
-                      style: TextStyle(
-                        fontFamily: 'Inder',
+                    Tab(
+                      child: Text(
+                        'Income',
+                        style: TextStyle(
+                          fontFamily: 'Inder',
+                        ),
                       ),
                     ),
-                  ),
-                  Tab(
-                    child: Text(
-                      'Expense',
-                      style: TextStyle(
-                        fontFamily: 'Inder',
+                    Tab(
+                      child: Text(
+                        'Expense',
+                        style: TextStyle(
+                          fontFamily: 'Inder',
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              width: double.maxFinite,
-              height: MediaQuery.of(context).size.height * 0.55,
-              child: TabBarView(
-                controller: tabController,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(
-                      16,
-                    ),
-                    child: chartdivertFunctionOverview().isEmpty
-                        ? dataEmpty(context)
-                        : Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: graphBlue,
-                            ),
-                            child: SfCircularChart(
-                              legend: Legend(
-                                isVisible: true,
-                                overflowMode: LegendItemOverflowMode.wrap,
-                                position: LegendPosition.bottom,
+              SizedBox(
+                width: double.maxFinite,
+                height: MediaQuery.of(context).size.height * 0.55,
+                child: TabBarView(
+                  controller: tabController,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(
+                        16,
+                      ),
+                      child: chartdivertFunctionOverview().isEmpty
+                          ? dataEmpty(context)
+                          : Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: graphBlue,
                               ),
-                              series: <CircularSeries>[
-                                PieSeries<ChartDatas, String>(
-                                  dataLabelSettings: const DataLabelSettings(
-                                    isVisible: true,
-                                    connectorLineSettings:
-                                        ConnectorLineSettings(
-                                            type: ConnectorType.curve),
-                                    overflowMode: OverflowMode.shift,
-                                    showZeroValue: false,
-                                    labelPosition:
-                                        ChartDataLabelPosition.outside,
-                                    textStyle: TextStyle(color: bgColor),
-                                  ),
-                                  dataSource: chartdivertFunctionOverview(),
-                                  xValueMapper: (ChartDatas data, _) =>
-                                      data.category,
-                                  yValueMapper: (ChartDatas data, _) =>
-                                      data.amount,
-                                  explode: true,
-                                )
-                              ],
-                            ),
-                          ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(
-                      16,
-                    ),
-                    child: chartdivertFunctionIncome().isEmpty
-                        ? dataEmpty(context)
-                        : Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: graphBlue,
-                            ),
-                            child: SfCircularChart(
-                              legend: Legend(
-                                isVisible: true,
-                                overflowMode: LegendItemOverflowMode.wrap,
-                                position: LegendPosition.bottom,
+                              child: SfCircularChart(
+                                legend: Legend(
+                                  isVisible: true,
+                                  overflowMode: LegendItemOverflowMode.wrap,
+                                  position: LegendPosition.bottom,
+                                ),
+                                series: <CircularSeries>[
+                                  PieSeries<ChartDatas, String>(
+                                    dataLabelSettings: const DataLabelSettings(
+                                      isVisible: true,
+                                      connectorLineSettings:
+                                          ConnectorLineSettings(
+                                              type: ConnectorType.curve),
+                                      overflowMode: OverflowMode.shift,
+                                      showZeroValue: false,
+                                      labelPosition:
+                                          ChartDataLabelPosition.outside,
+                                      textStyle: TextStyle(color: bgColor),
+                                    ),
+                                    dataSource: chartdivertFunctionOverview(),
+                                    xValueMapper: (ChartDatas data, _) =>
+                                        data.category,
+                                    yValueMapper: (ChartDatas data, _) =>
+                                        data.amount,
+                                    explode: true,
+                                  )
+                                ],
                               ),
-                              series: <CircularSeries>[
-                                PieSeries<ChartDatas, String>(
-                                  dataLabelSettings: const DataLabelSettings(
-                                    textStyle: TextStyle(color: bgColor),
-                                    isVisible: true,
-                                    connectorLineSettings:
-                                        ConnectorLineSettings(
-                                            type: ConnectorType.curve),
-                                    overflowMode: OverflowMode.shift,
-                                    showZeroValue: false,
-                                    labelPosition:
-                                        ChartDataLabelPosition.outside,
-                                  ),
-                                  dataSource: chartdivertFunctionIncome(),
-                                  xValueMapper: (ChartDatas data, _) =>
-                                      data.category,
-                                  yValueMapper: (ChartDatas data, _) =>
-                                      data.amount,
-                                  explode: true,
-                                )
-                              ],
                             ),
-                          ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(
-                      16,
                     ),
-                    child: chartdivertFunctionExpense().isEmpty
-                        ? dataEmpty(context)
-                        : Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: graphBlue,
-                            ),
-                            child: SfCircularChart(
-                              legend: Legend(
-                                isVisible: true,
-                                overflowMode: LegendItemOverflowMode.wrap,
-                                position: LegendPosition.bottom,
+                    Padding(
+                      padding: const EdgeInsets.all(
+                        16,
+                      ),
+                      child: chartdivertFunctionIncome().isEmpty
+                          ? dataEmpty(context)
+                          : Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: graphBlue,
                               ),
-                              series: <CircularSeries>[
-                                PieSeries<ChartDatas, String>(
-                                  dataLabelSettings: const DataLabelSettings(
-                                    textStyle: TextStyle(color: bgColor),
-                                    isVisible: true,
-                                    connectorLineSettings:
-                                        ConnectorLineSettings(
-                                            type: ConnectorType.curve),
-                                    overflowMode: OverflowMode.shift,
-                                    showZeroValue: false,
-                                    labelPosition:
-                                        ChartDataLabelPosition.outside,
-                                  ),
-                                  dataSource: chartdivertFunctionExpense(),
-                                  xValueMapper: (ChartDatas data, _) =>
-                                      data.category,
-                                  yValueMapper: (ChartDatas data, _) =>
-                                      data.amount,
-                                  explode: true,
-                                )
-                              ],
+                              child: SfCircularChart(
+                                legend: Legend(
+                                  isVisible: true,
+                                  overflowMode: LegendItemOverflowMode.wrap,
+                                  position: LegendPosition.bottom,
+                                ),
+                                series: <CircularSeries>[
+                                  PieSeries<ChartDatas, String>(
+                                    dataLabelSettings: const DataLabelSettings(
+                                      textStyle: TextStyle(color: bgColor),
+                                      isVisible: true,
+                                      connectorLineSettings:
+                                          ConnectorLineSettings(
+                                              type: ConnectorType.curve),
+                                      overflowMode: OverflowMode.shift,
+                                      showZeroValue: false,
+                                      labelPosition:
+                                          ChartDataLabelPosition.outside,
+                                    ),
+                                    dataSource: chartdivertFunctionIncome(),
+                                    xValueMapper: (ChartDatas data, _) =>
+                                        data.category,
+                                    yValueMapper: (ChartDatas data, _) =>
+                                        data.amount,
+                                    explode: true,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                  ),
-                ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(
+                        16,
+                      ),
+                      child: chartdivertFunctionExpense().isEmpty
+                          ? dataEmpty(context)
+                          : Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: graphBlue,
+                              ),
+                              child: SfCircularChart(
+                                legend: Legend(
+                                  isVisible: true,
+                                  overflowMode: LegendItemOverflowMode.wrap,
+                                  position: LegendPosition.bottom,
+                                ),
+                                series: <CircularSeries>[
+                                  PieSeries<ChartDatas, String>(
+                                    dataLabelSettings: const DataLabelSettings(
+                                      textStyle: TextStyle(color: bgColor),
+                                      isVisible: true,
+                                      connectorLineSettings:
+                                          ConnectorLineSettings(
+                                              type: ConnectorType.curve),
+                                      overflowMode: OverflowMode.shift,
+                                      showZeroValue: false,
+                                      labelPosition:
+                                          ChartDataLabelPosition.outside,
+                                    ),
+                                    dataSource: chartdivertFunctionExpense(),
+                                    xValueMapper: (ChartDatas data, _) =>
+                                        data.category,
+                                    yValueMapper: (ChartDatas data, _) =>
+                                        data.amount,
+                                    explode: true,
+                                  )
+                                ],
+                              ),
+                            ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

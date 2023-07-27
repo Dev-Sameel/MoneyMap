@@ -11,7 +11,6 @@ import 'package:money_management_app/screens/subScreens/refactoring/date_picker2
 import 'package:money_management_app/screens/subScreens/refactoring/decoration.dart';
 import '../../../models/category/category_model.dart';
 import '../../../models/transaction/transaction_model.dart';
-import '../../subScreens/refactoring/home_clipper.dart';
 
 class EditTransaction extends StatefulWidget {
   const EditTransaction({super.key, required this.model});
@@ -47,7 +46,7 @@ class _EditTransactionState extends State<EditTransaction> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    double contheight= height*0.77;
+    double contheight = height * 0.77;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -62,206 +61,220 @@ class _EditTransactionState extends State<EditTransaction> {
         centerTitle: true,
       ),
       backgroundColor: bgColor,
-      body: ListView(
-        children: [
-          Container(
-                        height:contheight,
-            
-            margin: EdgeInsets.only(right: 30, left: 30,top: 30),
-           decoration:containerShadow(BorderRadius.circular(10)),
-            child: Stack(
-              children: [
-                Image(image: AssetImage('assets/images/balls.png')),
-                Column(
-                  children: [
-                    Padding(
-                     padding: const EdgeInsets.only( top: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+      body: ScrollConfiguration(
+        behavior: RemoveGlow(),
+        child: ListView(
+          children: [
+            Container(
+              height: contheight,
+              margin: const EdgeInsets.only(right: 30, left: 30, top: 30),
+              decoration: containerShadow(BorderRadius.circular(10)),
+              child: Stack(
+                children: [
+                  const Image(image: AssetImage('assets/images/balls.png')),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Radio(
+                                  activeColor: white,
+                                  fillColor: const MaterialStatePropertyAll(white),
+                                  value: CategoryType.icome,
+                                  groupValue: _selectedCategorytype,
+                                  onChanged: (newvalue) {
+                                    setState(() {
+                                      _selectedCategorytype =
+                                          CategoryType.icome;
+                                      _categoryID = null;
+                                    });
+                                  },
+                                ),
+                                const Text('Income',
+                                    style: TextStyle(color: white)),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Radio(
+                                  activeColor: white,
+                                  fillColor: const MaterialStatePropertyAll(white),
+                                  value: CategoryType.expense,
+                                  groupValue: _selectedCategorytype,
+                                  onChanged: (newvalue) {
+                                    setState(() {
+                                      _selectedCategorytype =
+                                          CategoryType.expense;
+                                      _categoryID = null;
+                                    });
+                                  },
+                                ),
+                                const Text('Expense',
+                                    style: TextStyle(color: white)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      sizeBox15(height),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Radio(
-                                activeColor: white,
-                                fillColor: MaterialStatePropertyAll(white),
-                                value: CategoryType.icome,
-                                groupValue: _selectedCategorytype,
-                                onChanged: (newvalue) {
-                                  setState(() {
-                                    _selectedCategorytype =
-                                        CategoryType.icome;
-                                    _categoryID = null;
-                                  });
-                                },
-                              ),
-                              const Text('Income',
-                                style: TextStyle(color: white)),
-                            ],
+                          const Text(
+                            'Category',
+                            style: textSTYL2,
                           ),
-                          Row(
-                            children: [
-                              Radio(
-                                activeColor: white,
-                                fillColor: MaterialStatePropertyAll(white),
-                                value: CategoryType.expense,
-                                groupValue: _selectedCategorytype,
-                                onChanged: (newvalue) {
-                                  setState(() {
-                                    _selectedCategorytype =
-                                        CategoryType.expense;
-                                    _categoryID = null;
-                                  });
+                          sizeBox7(height),
+                          Container(
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                              width: width * 0.7,
+                              height: height * 0.07,
+                              decoration: customBoxBorder(),
+                              child: Center(
+                                child: DropdownButtonFormField<String>(
+                                  borderRadius: BorderRadius.circular(20),
+                                  decoration: const InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                  ),
+                                  dropdownColor: Colors.teal,
+                                  value: _categoryID,
+                                  items: (_selectedCategorytype ==
+                                              CategoryType.icome
+                                          ? CategoryDB.instance
+                                              .incomeCategoryListListener
+                                          : CategoryDB.instance
+                                              .expenseCategoryListListener)
+                                      .value
+                                      .map((e) {
+                                    return DropdownMenuItem(
+                                      value: e.id,
+                                      child: Text(
+                                        e.name,
+                                        style: const TextStyle(color: white),
+                                      ),
+                                      onTap: () {
+                                        _selectedCategoryModel = e;
+                                      },
+                                    );
+                                  }).toList(),
+                                  onChanged: (selectedValue) {
+                                    setState(() {
+                                      _categoryID = selectedValue;
+                                    });
+                                  },
+                                  hint: Text(
+                                    (_selectedCategoryModel!.name),
+                                    style: const TextStyle(color: expenseColor),
+                                  ),
+                                ),
+                              )),
+                          sizeBox25(height),
+                          const Text('Notes', style: textSTYL2),
+                          sizeBox7(height),
+                          Container(
+                              width: width * 0.7,
+                              height: height * 0.07,
+                              decoration: customBoxBorder(),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: InputDecor(
+                                      controller: purposeTextEditingController,
+                                      textInputType: TextInputType.text,
+                                      hintText: 'Enter Notes'),
+                                ),
+                              )),
+                          sizeBox25(height),
+                          const Text('Amount', style: textSTYL2),
+                          sizeBox7(height),
+                          Container(
+                              width: width * 0.7,
+                              height: height * 0.07,
+                              decoration: customBoxBorder(),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: InputDecor(
+                                      controller: amountTextEditingController,
+                                      textInputType: TextInputType.number,
+                                      hintText: 'Enter Amount'),
+                                ),
+                              )),
+                          sizeBox25(height),
+                          const Text('Date', style: textSTYL2),
+                          sizeBox7(height),
+                          Container(
+                              width: width * 0.7,
+                              height: height * 0.07,
+                              decoration: customBoxBorder(),
+                              child: TextButton.icon(
+                                style: const ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStatePropertyAll(white),
+                                    overlayColor: MaterialStatePropertyAll(
+                                        Colors.transparent)),
+                                onPressed: () async {
+                                  final selectedDateTemp =
+                                      await datePicker2(context);
+                                  if (selectedDateTemp == null) {
+                                    return;
+                                  } else {
+                                    setState(() {
+                                      _selectedDate = selectedDateTemp;
+                                    });
+                                  }
                                 },
-                              ),
-                              const Text('Expense',
-                                style: TextStyle(color: white)),
-                            ],
+                                icon: const Icon(Icons.calendar_today),
+                                label: Text(
+                                  _selectedDate == null
+                                      ? 'Select Date'
+                                      : DateFormat("dd-MMMM-yyyy")
+                                          .format(_selectedDate!),
+                                ),
+                              )),
+                          const SizedBox(
+                            height: 40,
                           ),
                         ],
                       ),
-                    ),
-                    sizeBox15(height),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Category',
-                          style: textSTYL2,
-                        ),
-                        sizeBox7(height),
-                        Container(
-                            width: width*0.7,
-                            height: height*0.07,
-                            decoration: customBoxBorder(),
-                            child: Center(
-                              child: DropdownButton<String>(
-                                dropdownColor: Colors.teal,
-                                value: _categoryID,
-                                underline: const SizedBox(),
-                                items: (_selectedCategorytype ==
-                                            CategoryType.icome
-                                        ? CategoryDB.instance
-                                            .incomeCategoryListListener
-                                        : CategoryDB.instance
-                                            .expenseCategoryListListener)
-                                    .value
-                                    .map((e) {
-                                  return DropdownMenuItem(
-                                    value: e.id,
-                                    child: Text(e.name,style: TextStyle(color: white),),
-                                    onTap: () {
-                                      _selectedCategoryModel = e;
-                                    },
-                                  );
-                                }).toList(),
-                                onChanged: (selectedValue) {
-                                  setState(() {
-                                    _categoryID = selectedValue;
-                                  });
-                                },
-                                hint: Padding(
-                                  padding: const EdgeInsets.only(right: 26),
-                                  child:
-                                      Text((_selectedCategoryModel!.name)),
-                                ),
-                              ),
-                            )),
-                        sizeBox25(height),
-                        const Text('Notes', style: textSTYL2),
-                        sizeBox7(height),
-                        Container(
-                            width: width*0.7,
-                            height: height*0.07,
-                            decoration: customBoxBorder(),
-                            child: Center(
-                              child: Padding(
-                                padding:  EdgeInsets.only(left: 20),
-                                child: InputDecor(
-                                    controller: purposeTextEditingController,
-                                    textInputType: TextInputType.text,
-                                    hintText: 'Enter Notes'),
-                              ),
-                            )),
-                        sizeBox25(height),
-                        const Text('Amount', style: textSTYL2),
-                        sizeBox7(height),
-                        Container(
-                            width: width*0.7,
-                            height: height*0.07,
-                            decoration: customBoxBorder(),
-                            child: Center(
-                              child: Padding(
-                               padding:  EdgeInsets.only(left: 20),
-                                child: InputDecor(
-                                    controller: amountTextEditingController,
-                                    textInputType: TextInputType.number,
-                                    hintText: 'Enter Amount'),
-                              ),
-                            )),
-                        sizeBox25(height),
-                        const Text('Date', style: textSTYL2),
-                        sizeBox7(height),
-                        Container(
-                            width: width*0.7,
-                            height: height*0.07,
-                            decoration: customBoxBorder(),
-                            child: TextButton.icon(
-                              style: const ButtonStyle(
-                                  foregroundColor: MaterialStatePropertyAll(
-                                      white),
-                                  overlayColor: MaterialStatePropertyAll(
-                                      Colors.transparent)),
-                              onPressed: () async {
-                                final selectedDateTemp =
-                                    await datePicker2(context);
-                                if (selectedDateTemp == null) {
-                                  return;
-                                } else {
-                                  setState(() {
-                                    _selectedDate = selectedDateTemp;
-                                  });
-                                }
-                              },
-                              icon: const Icon(Icons.calendar_today),
-                              label: Text(
-                                _selectedDate == null
-                                    ? 'Select Date'
-                                    : DateFormat("dd-MMMM-yyyy")
-                                        .format(_selectedDate!),
-                              ),
-                            )),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: width*0.25,
-                      height: height*0.055,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(80),
-        gradient:buttonGradient
-                        ),
-                        child: ElevatedButton(
-                          style: const ButtonStyle(
-                            shadowColor: MaterialStatePropertyAll(
-                                  Colors.transparent),
-                              elevation: MaterialStatePropertyAll(10),
-                              backgroundColor: MaterialStatePropertyAll(Colors.transparent),overlayColor: MaterialStatePropertyAll(Colors.transparent)),
-                          onPressed: () {
-                            editTransaction();
-                          },
-                          child: const Text('Update'),
+                      SizedBox(
+                        width: width * 0.25,
+                        height: height * 0.055,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80),
+                              gradient: buttonGradient),
+                          child: ElevatedButton(
+                            style: const ButtonStyle(
+                                shadowColor: MaterialStatePropertyAll(
+                                    Colors.transparent),
+                                elevation: MaterialStatePropertyAll(10),
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.transparent),
+                                overlayColor: MaterialStatePropertyAll(
+                                    Colors.transparent)),
+                            onPressed: () {
+                              editTransaction();
+                            },
+                            child: const Text('Update'),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -303,7 +316,7 @@ class _EditTransactionState extends State<EditTransaction> {
     filterFunction();
     await TransactionDB.instance.refresh();
     await Amounts.instance.balanceAmount();
-    showCustomSnackBar(context, 'Updated');
-
+    // ignore: use_build_context_synchronously
+    showCustomSnackBar(context, 'Updated', 50);
   }
 }

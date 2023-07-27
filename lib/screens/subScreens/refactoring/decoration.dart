@@ -10,19 +10,17 @@ class InputDecor extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hintText,
-    this.textInputType ,
+    this.textInputType,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: white),
-      
+      style: const TextStyle(color: white),
       keyboardType: textInputType,
       controller: controller,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        
           border: InputBorder.none,
           hintText: hintText,
           hintStyle: const TextStyle(color: Colors.grey)),
@@ -30,31 +28,26 @@ class InputDecor extends StatelessWidget {
   }
 }
 
-
-
-
-  sizeBox25(height) {
-  return  SizedBox(
+sizeBox25(height) {
+  return SizedBox(
     height: height * 25 / 812,
   );
 }
 
 sizeBox15(height) {
-  return  SizedBox(
+  return SizedBox(
     height: height * 15 / 812,
   );
 }
 
 sizeBox7(height) {
-  return  SizedBox(
+  return SizedBox(
     height: height * 7 / 812,
   );
 }
 
 sizeBox40(height) {
-  return  SizedBox(
+  return SizedBox(
     height: height * 40 / 812,
   );
 }
-
-

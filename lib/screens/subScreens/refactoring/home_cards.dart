@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+
+
 class CustomCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
@@ -8,6 +10,7 @@ class CustomCard extends StatelessWidget {
   final ValueListenable valueNotifier;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisAlignment mainAxisAlignment;
+
 
   const CustomCard({
     Key? key,
@@ -17,15 +20,18 @@ class CustomCard extends StatelessWidget {
     required this.valueNotifier,
     required this.crossAxisAlignment,
     required this.mainAxisAlignment,
+
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    
     return Container(
       padding: const EdgeInsets.all(15),
-      width: 140,
-      height:140,
+      width: width*0.4,
+      height:height*0.21,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: const Color.fromARGB(255, 255, 246, 206),

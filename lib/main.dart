@@ -1,6 +1,5 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:money_management_app/models/category/category_model.dart';
 
@@ -30,7 +29,7 @@ Future<void> main() async {
     
     DevicePreview(
       enabled: true,
-      builder:(context) => MyApp(),));
+      builder:(context) => const MyApp(),));
 }
 
 class MyApp extends StatelessWidget {
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       title: 'Money Map',
-      home: SplashScreen(),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -76,7 +76,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
                     );
                     CategoryDB.instance.insertCategory(category);
                     Navigator.of(ctx).pop();
-                    showCustomSnackBar(context, 'Category added successfully');
+                    showCustomSnackBar(context, 'Category added successfully',0);
                   },
                   child: const Text('ADD'),
                 ),
